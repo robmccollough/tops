@@ -1,9 +1,9 @@
 import Struct from "./Struct.svelte";
+require("dotenv").config();
 
 const struct = new Struct({
   target: document.body,
   props: {
-    //todo: move this into env
     client_id: process.env.CLIENT_ID,
     redirect_uri: process.env.REDIRECT_URI
   }
