@@ -1,6 +1,4 @@
 import Struct from "./Struct.svelte";
-import dotenv from "dotenv";
-dotenv.config();
 
 const struct = new Struct({
   target: document.body,
