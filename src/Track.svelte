@@ -1,4 +1,5 @@
 <script>
+  import { fly } from "svelte/transition";
   export let data;
   export let index;
 
@@ -17,6 +18,7 @@
     width: 100%;
     height: 128px;
     position: relative;
+    background-color: #181717;
     /* flex-direction: row;
     flex-wrap: nowrap;
     color: white;
@@ -24,6 +26,9 @@
     align-items: center; */
   }
 
+main:hover {
+    background-color: #1b1a1a;
+  }
   .left {
     height: 100%;
     width: auto;
@@ -99,7 +104,7 @@
   }
 </style>
 
-<main>
+<main in:fly={{ y: 200, duration: 800, delay: 500 + 75 * index }}>
   <div class="left">
     <div
       class="cont"
@@ -116,7 +121,9 @@
     <div class="subtitle">
       {#each data.artists as artist}
         <span>
-          <a href={artist.href} target="blank">{artist.name}</a>
+          <a href={artist.external_urls.spotify} target="blank">
+            {artist.name}
+          </a>
         </span>
       {/each}
     </div>

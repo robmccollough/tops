@@ -2,6 +2,8 @@
   import axios from "axios";
   import Artist from "./Artist.svelte";
   import Track from "./Track.svelte";
+  import { fly, fade } from "svelte/transition";
+  import Switcher from "./Switcher.svelte";
   export let access_token;
 
   //defaults for both
@@ -54,7 +56,7 @@
       errors.artist = error;
     });
 
-  let toggle = "tracks";
+  let toggle = "artists";
   function handleSwitch(data) {
     if (toggle !== data) {
       toggle = data;
@@ -91,29 +93,10 @@
     max-width: 1300px;
   }
 
-  .switcher {
-    width: 30%;
-    height: 100px;
-    border: 1px solid white;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-evenly;
-    position: relative;
-    margin: 5px auto 5px auto;
-  }
-
-  /* .switcher.h1:after {
-    content: "";
-    width: 28%;
-    position: absolute;
-    bottom: -10px;
-    height: 5px;
-  } */
-
   .top {
     width: 98%;
     min-width: 400px;
+    position: relative;
     overflow-y: scroll;
   }
 
@@ -124,10 +107,11 @@
     flex-direction: column;
     align-items: center;
     justify-content: flex-start;
+    padding-top: 50px;
   }
 
   .legend {
-    width: auto;
+    width: 100%;
     height: 50px;
     display: grid;
     grid-template-areas: ". rank title artists . duration";
@@ -135,6 +119,8 @@
     grid-template-rows: 1fr;
     align-items: center;
     justify-items: center;
+    position: absolute;
+    top: 0;
   }
 
   .rank {
@@ -164,27 +150,19 @@
 </header>
 <main>
 
-  <div class="switcher">
-    <h1
-      class={`tracks ${toggle == 'tracks' ? 'active' : ''}`}
-      on:click={() => handleSwitch('tracks')}>
-      Tracks
-    </h1>
-    <h1
-      class={`tracks ${toggle == 'artists' ? 'active' : ''}`}
-      on:click={() => handleSwitch('artists')}>
-      Artists
-    </h1>
-  </div>
+  <Switcher left="tracks" right="artists" {toggle} handleClick={handleSwitch} />
 
   {#if toggle === 'tracks'}
-    <div class="top tracks">
+    <div
+      class="top"
+      in:fly={{ x: -500, duration: 500 }}
+      out:fly={{ x: 500, duration: 500 }}>
       {#await tracks}
 
         <h1>Loading</h1>
 
       {:then res}
-        <div class="legend">
+        <div class="legend" in:fade={{ duration: 400, delay: 500 }}>
           <span class="rank">Rank</span>
           <span class="title">Title</span>
           <span class="artists">Artists</span>
@@ -202,12 +180,22 @@
       {/await}
     </div>
   {:else if toggle === 'artists'}
-    <div class="top artists">
+    <div
+      class="top"
+      in:fly={{ x: 500, duration: 500 }}
+      out:fly={{ x: -500, duration: 500 }}>
+
       {#await artists}
 
         <h1>Loading</h1>
 
       {:then res}
+        <div class="legend" in:fade={{ duration: 400, delay: 500 }}>
+          <span class="rank">Rank</span>
+          <span class="title">Title</span>
+          <span class="artists">Preview</span>
+          <span class="duration">Popularity</span>
+        </div>
         <div class="container">
           {#each res.items as artist, i}
             <Artist data={artist} index={i + 1} />

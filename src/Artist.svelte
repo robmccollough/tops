@@ -1,60 +1,103 @@
 <script>
+  import { fly, fade } from "svelte/transition";
   export let data;
   export let index;
 </script>
 
 <style>
   main {
+    box-sizing: border-box;
+    border-top: 2px solid rgba(200, 200, 200, 0.5);
     width: 100%;
     height: 128px;
-    display: grid;
-    grid-template-areas: "image index artist followers more .";
-    grid-template-columns: 0.5fr 30% 1fr 0.5fr 0.5fr 5%;
-    grid-template-rows: 1fr;
-    color: white;
-    justify-items: center;
-    align-items: center;
-    overflow: hidden;
-    box-sizing: border-box;
-    border-top: 2px solid rgba(255, 255, 255, 0.7);
+    position: relative;
   }
 
-  main h2 {
-    grid-area: index;
+  main:hover {
+    background-color: #1b1a1a;
   }
-  .img-cont {
+
+  .left {
     height: 100%;
-    width: 100%;
+    width: auto;
+    position: absolute;
+    left: 0;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+  }
+
+  .right {
+    height: 100%;
+    width: 128px;
+    position: absolute;
+    right: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.3em;
+    font-weight: 275;
+    color: #6a6a6a;
+  }
+
+  .cont {
+    height: 128px;
+    width: 128px;
     background-position: 50% 50%;
     background-repeat: no-repeat;
     background-size: contain;
-    grid-area: image;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5em;
   }
-  main p {
-    grid-area: artist;
+
+  .title {
+    width: 256px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+  }
+
+  .title span {
     font-size: 1.5em;
     font-weight: 300;
+    max-width: 70%;
+  }
+  .title a {
+    text-decoration: none;
+    font-size: 1.3em;
+    font-weight: 275;
+    color: #e2e2e2;
   }
 
-  main span {
-    grid-area: followers;
-  }
-
-  button {
-    grid-area: more;
+  .title a:hover {
+    color: #8f8f8f;
   }
 </style>
 
-<main>
-  <h2>{index}</h2>
-  <div
-    class="img-cont"
-    style={`background-image: url('${data.images[0].url}');`} />
+<main in:fly={{ y: 200, duration: 800, delay: 500 + 75 * index }}>
+  <div class="left">
+    <div
+      class="cont"
+      style={`background-image: url('${data.images[2].url}');`} />
 
-  <p>{data.name}</p>
+    <div class="cont">
+      <span>{index}</span>
+    </div>
 
-  <span>{data.followers.total} Followers</span>
+    <div class="title">
+      <span>
+        <a href={data.external_urls.spotify} target="blank">{data.name}</a>
+      </span>
+    </div>
 
-  <button>More</button>
+  </div>
+
+  <div class="right">
+    <span>{data.followers.total} Followers</span>
+  </div>
 
 </main>
