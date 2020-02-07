@@ -5,19 +5,18 @@
 
 <style>
   main {
-    margin-bottom: 3%;
     width: 100%;
-    min-height: 20%;
-    height: 20%;
+    height: 128px;
     display: grid;
-    grid-template-areas: "index image artist followers more .";
+    grid-template-areas: "image index artist followers more .";
     grid-template-columns: 0.5fr 30% 1fr 0.5fr 0.5fr 5%;
     grid-template-rows: 1fr;
-    background-color: black;
     color: white;
     justify-items: center;
     align-items: center;
     overflow: hidden;
+    box-sizing: border-box;
+    border-top: 2px solid rgba(255, 255, 255, 0.7);
   }
 
   main h2 {

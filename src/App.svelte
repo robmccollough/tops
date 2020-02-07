@@ -3,6 +3,7 @@
   import Artist from "./Artist.svelte";
   import Track from "./Track.svelte";
   export let access_token;
+
   //defaults for both
   let track_params = {
     limit: 20,
@@ -52,6 +53,13 @@
     .catch(error => {
       errors.artist = error;
     });
+
+  let toggle = "tracks";
+  function handleSwitch(data) {
+    if (toggle !== data) {
+      toggle = data;
+    }
+  }
 </script>
 
 <style>
@@ -72,74 +80,145 @@
     position: absolute;
   }
   main {
-    margin-top: 50px;
+    margin: 0px auto;
     width: 100%;
     display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: space-evenly;
+    flex-direction: column;
+    justify-content: flex-start;
     align-items: center;
     overflow: hidden;
     height: 85%;
+    max-width: 1300px;
   }
+
+  .switcher {
+    width: 30%;
+    height: 100px;
+    border: 1px solid white;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+    position: relative;
+    margin: 5px auto 5px auto;
+  }
+
+  /* .switcher.h1:after {
+    content: "";
+    width: 28%;
+    position: absolute;
+    bottom: -10px;
+    height: 5px;
+  } */
+
   .top {
-    width: 48%;
-    height: 100%;
+    width: 98%;
     min-width: 400px;
+    overflow-y: scroll;
   }
 
   .container {
-    height: 95%;
+    height: auto;
     width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: flex-start;
-    overflow-y: auto;
   }
+
+  .legend {
+    width: auto;
+    height: 50px;
+    display: grid;
+    grid-template-areas: ". rank title artists . duration";
+    grid-template-columns: 128px 128px 256px 192px auto 128px;
+    grid-template-rows: 1fr;
+    align-items: center;
+    justify-items: center;
+  }
+
+  .rank {
+    grid-area: rank;
+  }
+
+  .title {
+    grid-area: title;
+  }
+
+  .artists {
+    grid-area: artists;
+  }
+
+  .duration {
+    grid-area: duration;
+  }
+  /* @media (min-width: 640px) {
+    main {
+      width: 80%;
+    }
+  } */
 </style>
 
 <header>
   <h1>tops.</h1>
 </header>
 <main>
-  <div class="top tracks">
-    {#await tracks}
 
-      <h1>Loading</h1>
-
-    {:then res}
-
-      <h1>Tracks</h1>
-
-      <div class="container">
-        {#each res.items as track, i}
-          <Track data={track} index={i + 1} />
-        {/each}
-      </div>
-
-    {:catch error}
-
-      <p style="color: red">{error.message}</p>
-    {/await}
+  <div class="switcher">
+    <h1
+      class={`tracks ${toggle == 'tracks' ? 'active' : ''}`}
+      on:click={() => handleSwitch('tracks')}>
+      Tracks
+    </h1>
+    <h1
+      class={`tracks ${toggle == 'artists' ? 'active' : ''}`}
+      on:click={() => handleSwitch('artists')}>
+      Artists
+    </h1>
   </div>
-  <div class="top artists">
-    {#await artists}
 
-      <h1>Loading</h1>
+  {#if toggle === 'tracks'}
+    <div class="top tracks">
+      {#await tracks}
 
-    {:then res}
-      <h1>Artists</h1>
-      <div class="container">
+        <h1>Loading</h1>
 
-        {#each res.items as artist, i}
-          <Artist data={artist} index={i + 1} />
-        {/each}
-      </div>
+      {:then res}
+        <div class="legend">
+          <span class="rank">Rank</span>
+          <span class="title">Title</span>
+          <span class="artists">Artists</span>
+          <span class="duration">Duration</span>
+        </div>
+        <div class="container">
+          {#each res.items as track, i}
+            <Track data={track} index={i + 1} />
+          {/each}
+        </div>
 
-    {:catch error}
+      {:catch error}
 
-      <p style="color: red">{error.message}</p>
-    {/await}
-  </div>
+        <p style="color: red">{error.message}</p>
+      {/await}
+    </div>
+  {:else if toggle === 'artists'}
+    <div class="top artists">
+      {#await artists}
+
+        <h1>Loading</h1>
+
+      {:then res}
+        <div class="container">
+          {#each res.items as artist, i}
+            <Artist data={artist} index={i + 1} />
+          {/each}
+        </div>
+
+      {:catch error}
+
+        <p style="color: red">{error.message}</p>
+      {/await}
+    </div>
+  {/if}
+
 </main>
