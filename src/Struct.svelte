@@ -1,7 +1,6 @@
 <script>
   import queryString from "query-string";
   import App from "./App.svelte";
-  import Podium from "./Podium.svelte";
   export let client_id;
   export let redirect_uri;
 
