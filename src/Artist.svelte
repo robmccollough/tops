@@ -2,6 +2,7 @@
   import { fly, fade } from "svelte/transition";
   export let data;
   export let index;
+  let bg = `background-image: url('${data.images[0].url}');`
 </script>
 
 <style>
@@ -76,13 +77,30 @@
   .title a:hover {
     color: #8f8f8f;
   }
+
+  @media (max-width: 1024px){
+    main{
+      font-size: 8px;
+      height: 64px;
+    }
+    .cont{
+      width: 64px;
+      height: 64px;
+    }
+    .title{
+      width: 128px;
+    }
+    .right{
+      width: 64px;
+    }
+  }
 </style>
 
 <main in:fly={{ y: 200, duration: 800, delay: 500 + 75 * index }}>
   <div class="left">
     <div
       class="cont"
-      style={`background-image: url('${data.images[2].url}');`} />
+      style={bg} />
 
     <div class="cont">
       <span>{index}</span>

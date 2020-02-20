@@ -90,7 +90,7 @@
     align-items: center;
     overflow: hidden;
     height: 85%;
-    max-width: 1300px;
+    transition: width 1s ease-in-out;
   }
 
   .top {
@@ -108,6 +108,7 @@
     align-items: center;
     justify-content: flex-start;
     padding-top: 50px;
+
   }
 
   .legend {
@@ -115,7 +116,7 @@
     height: 50px;
     display: grid;
     grid-template-areas: ". rank title artists . duration";
-    grid-template-columns: 128px 128px 256px 192px auto 128px;
+    grid-template-columns: 128px 128px 256px 190px auto 128px;
     grid-template-rows: 1fr;
     align-items: center;
     justify-items: center;
@@ -138,11 +139,42 @@
   .duration {
     grid-area: duration;
   }
-  /* @media (min-width: 640px) {
+
+  /* Bigger than 1300px */
+  @media (min-width: 1400px) {
     main {
+      width: 65%;
+    }
+  }
+
+/* smaller than 1024 */
+  @media (max-width: 1399px){
+    /* switch to 64 px grid legend */
+    /* :global(body){
+      background-color: orange;
+    } */
+    main{
       width: 80%;
     }
-  } */
+  }
+
+  @media (max-width: 1024px){
+    .legend{
+      grid-template-columns: 64px 64px 128px 95px auto 64px;
+    }
+  }
+
+  @media (max-width: 650px ) {
+    main {
+      width: 95%;
+    }
+  }
+
+
+
+
+  
+  
 </style>
 
 <header>

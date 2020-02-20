@@ -9,6 +9,8 @@
     var seconds = ((millis % 60000) / 1000).toFixed(0);
     return minutes + ":" + (seconds < 10 ? "0" : "") + seconds;
   }
+
+  let bg = `background-image: url('${data.album.images[0].url}');`
 </script>
 
 <style>
@@ -51,6 +53,8 @@ main:hover {
     font-size: 1.3em;
     font-weight: 275;
     color: #6a6a6a;
+    /* background-color: #181717; */
+
   }
 
   .cont {
@@ -102,13 +106,30 @@ main:hover {
   .subtitle a:hover {
     color: #8f8f8f;
   }
+
+  @media (max-width: 1024px){
+    main{
+      font-size: 8px;
+      height: 64px;
+    }
+    .cont{
+      width: 64px;
+      height: 64px;
+    }
+    .title{
+      width: 128px;
+    }
+    .right{
+      width: 64px;
+    }
+  }
+
 </style>
 
 <main in:fly={{ y: 200, duration: 800, delay: 500 + 75 * index }}>
   <div class="left">
     <div
-      class="cont"
-      style={`background-image: url('${data.album.images[0].url}');`} />
+      class="cont" style={bg} />
 
     <div class="cont">
       <span>{index}</span>
