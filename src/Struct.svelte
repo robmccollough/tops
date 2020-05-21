@@ -10,12 +10,12 @@
     parsed = queryString.parse(window.location.hash);
   }
 
-  let href = `https://accounts.spotify.com/authorize?client_id=${client_id}&response_type=token&redirect_uri=${redirect_uri}`;
+  let href = `https://accounts.spotify.com/authorize?client_id=${client_id}&response_type=token&redirect_uri=${redirect_uri}&scope=user-top-read`;
 
   let has_access = typeof parsed.access_token !== "undefined" ? true : false;
 </script>
 
-<style>
+<style type="text/scss">
   :global(body) {
     background: #181717;
     color: #f1f1f1;
@@ -96,6 +96,7 @@
 
     <h1>My Top Tracks</h1>
     <h3>Connect With Spotify</h3>
-    <a {href}>AUTHORIZE</a>
+    <a {href}>Go To Spotify</a>
+
   </main>
 {/if}

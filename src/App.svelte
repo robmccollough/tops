@@ -30,7 +30,6 @@
   })
     .then(result => {
       if (result.data) {
-        console.log(result.data);
         return result.data;
       }
     })
@@ -48,7 +47,6 @@
   })
     .then(result => {
       if (result.data) {
-        console.log(result.data);
         return result.data;
       }
     })
@@ -64,7 +62,7 @@
   }
 </script>
 
-<style>
+<style type="text/scss">
   header {
     font-size: 4em;
     font-weight: 800;
@@ -108,7 +106,6 @@
     align-items: center;
     justify-content: flex-start;
     padding-top: 50px;
-
   }
 
   .legend {
@@ -147,34 +144,28 @@
     }
   }
 
-/* smaller than 1024 */
-  @media (max-width: 1399px){
+  /* smaller than 1024 */
+  @media (max-width: 1399px) {
     /* switch to 64 px grid legend */
     /* :global(body){
       background-color: orange;
     } */
-    main{
+    main {
       width: 80%;
     }
   }
 
-  @media (max-width: 1024px){
-    .legend{
+  @media (max-width: 1024px) {
+    .legend {
       grid-template-columns: 64px 64px 128px 95px auto 64px;
     }
   }
 
-  @media (max-width: 650px ) {
+  @media (max-width: 650px) {
     main {
       width: 95%;
     }
   }
-
-
-
-
-  
-  
 </style>
 
 <header>

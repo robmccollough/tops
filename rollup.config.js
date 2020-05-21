@@ -2,7 +2,12 @@ import svelte from "rollup-plugin-svelte";
 import resolve from "@rollup/plugin-node-resolve";
 import commonjs from "rollup-plugin-commonjs";
 import livereload from "rollup-plugin-livereload";
-import { terser } from "rollup-plugin-terser";
+import {
+	terser
+} from "rollup-plugin-terser";
+import {
+	autoPreprocess
+} from "svelte-preprocess/dist/autoProcess";
 
 const production = !process.env.ROLLUP_WATCH;
 
@@ -22,7 +27,8 @@ export default {
 			// a separate file — better for performance
 			css: css => {
 				css.write("docs/build/bundle.css");
-			}
+			},
+			preprocess: autoPreprocess()
 		}),
 
 		// If you have external dependencies installed from
@@ -51,9 +57,7 @@ export default {
 	],
 	watch: {
 		clearScreen: false,
-		chokidar: {
-			usePolling: true
-		}
+		chokidar: false
 	}
 };
 
