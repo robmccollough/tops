@@ -2,13 +2,10 @@
   import { fly, fade } from "svelte/transition";
   export let data;
   export let index;
-  let bg = `background-image: url('${data.images[0].url}');`;
-  function numberWithCommas(x) {
-    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-  }
+  let bg = `background-image: url('${data.images[0].url}');`
 </script>
 
-<style type="text/scss">
+<style>
   main {
     box-sizing: border-box;
     border-top: 2px solid rgba(200, 200, 200, 0.5);
@@ -38,8 +35,7 @@
     position: absolute;
     right: 0;
     display: flex;
-    flex-direction: column;
-    align-items: flex-start;
+    align-items: center;
     justify-content: center;
     font-size: 1.3em;
     font-weight: 275;
@@ -82,19 +78,19 @@
     color: #8f8f8f;
   }
 
-  @media (max-width: 1024px) {
-    main {
+  @media (max-width: 1024px){
+    main{
       font-size: 8px;
       height: 64px;
     }
-    .cont {
+    .cont{
       width: 64px;
       height: 64px;
     }
-    .title {
+    .title{
       width: 128px;
     }
-    .right {
+    .right{
       width: 64px;
     }
   }
@@ -102,7 +98,9 @@
 
 <main in:fly={{ y: 200, duration: 800, delay: 500 + 75 * index }}>
   <div class="left">
-    <div class="cont" style={bg} />
+    <div
+      class="cont"
+      style={bg} />
 
     <div class="cont">
       <span>{index}</span>
@@ -117,8 +115,7 @@
   </div>
 
   <div class="right">
-    <span>{numberWithCommas(data.followers.total)}</span>
-    <span>Followers</span>
+    <span>{data.followers.total} Followers</span>
   </div>
 
 </main>

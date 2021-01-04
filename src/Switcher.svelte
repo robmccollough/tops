@@ -1,3 +1,4 @@
+
 <script>
   export let handleClick;
   export let toggle;
@@ -5,7 +6,7 @@
   export let right;
 </script>
 
-<style type="text/scss">
+<style>
   .switcher {
     width: 400px;
     height: 30px;
@@ -15,7 +16,7 @@
     justify-content: space-evenly;
     margin: 5px auto 5px auto;
     position: relative;
-    background-color: rgba(255, 255, 255, 0.2);
+    background-color: rgba(255,255,255, 0.2);
     border-radius: 30px;
   }
 
@@ -42,17 +43,20 @@
     transition: left 1s;
   }
 
-  .l {
-    left: 0;
-  }
+    .l{
+        left:0;
+    }
 
   .r {
-    left: 50%;
-  }
+
+      left: 50%;
+    }
 </style>
 
+
+
 <main class="switcher">
-  <div class={`overlay ${toggle == left ? 'l' : 'r'}`} />
+  <div class={`overlay ${toggle == left ? 'l' : 'r'}`}/>
   <div class="side" on:click={() => handleClick(left)}>
     <span>Tracks</span>
   </div>
