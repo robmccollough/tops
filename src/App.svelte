@@ -20,7 +20,7 @@
 
   let errors = {};
 
-  console.log(access_token)
+  console.log(access_token);
 
   let tracks = axios({
     method: "get",
@@ -110,7 +110,6 @@
     align-items: center;
     justify-content: flex-start;
     padding-top: 50px;
-
   }
 
   .legend {
@@ -149,34 +148,28 @@
     }
   }
 
-/* smaller than 1024 */
-  @media (max-width: 1399px){
+  /* smaller than 1024 */
+  @media (max-width: 1399px) {
     /* switch to 64 px grid legend */
     /* :global(body){
       background-color: orange;
     } */
-    main{
+    main {
       width: 80%;
     }
   }
 
-  @media (max-width: 1024px){
-    .legend{
+  @media (max-width: 1024px) {
+    .legend {
       grid-template-columns: 64px 64px 128px 95px auto 64px;
     }
   }
 
-  @media (max-width: 650px ) {
+  @media (max-width: 650px) {
     main {
       width: 95%;
     }
   }
-
-
-
-
-  
-  
 </style>
 
 <header>
@@ -227,7 +220,7 @@
         <div class="legend" in:fade={{ duration: 400, delay: 500 }}>
           <span class="rank">Rank</span>
           <span class="title">Title</span>
-          <span class="artists">Preview</span>
+          <span class="artists">Genres</span>
           <span class="duration">Popularity</span>
         </div>
         <div class="container">

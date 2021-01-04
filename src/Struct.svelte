@@ -10,7 +10,7 @@
     parsed = queryString.parse(window.location.hash);
   }
 
-  let href = `https://accounts.spotify.com/authorize?client_id=${client_id}&response_type=token&scope="user-top-read user-read-private"&redirect_uri=${redirect_uri}`;
+  let href = `https://accounts.spotify.com/authorize?client_id=${client_id}&response_type=token&scope=user-top-read user-read-private&redirect_uri=${redirect_uri}`;
 
   let has_access = typeof parsed.access_token !== "undefined" ? true : false;
   console.log(`has_access : ${has_access}, token: ${parsed.access_token}`);
