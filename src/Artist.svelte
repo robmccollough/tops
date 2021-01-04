@@ -2,7 +2,7 @@
   import { fly, fade } from "svelte/transition";
   export let data;
   export let index;
-  let bg = `background-image: url('${data.images[0].url}');`
+  let bg = `background-image: url('${data.images[0].url}');`;
 </script>
 
 <style>
@@ -78,19 +78,29 @@
     color: #8f8f8f;
   }
 
-  @media (max-width: 1024px){
-    main{
+  .genres {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+    font-size: 0.5em;
+    color: #6a6a6a;
+  }
+
+  @media (max-width: 1024px) {
+    main {
       font-size: 8px;
       height: 64px;
     }
-    .cont{
+    .cont {
       width: 64px;
       height: 64px;
     }
-    .title{
+    .title {
       width: 128px;
     }
-    .right{
+    .right {
       width: 64px;
     }
   }
@@ -98,9 +108,7 @@
 
 <main in:fly={{ y: 200, duration: 800, delay: 500 + 75 * index }}>
   <div class="left">
-    <div
-      class="cont"
-      style={bg} />
+    <div class="cont" style={bg} />
 
     <div class="cont">
       <span>{index}</span>
@@ -110,6 +118,12 @@
       <span>
         <a href={data.external_urls.spotify} target="blank">{data.name}</a>
       </span>
+    </div>
+
+    <div class="genres">
+      {#each data.genres as genre}
+        <span>{genre}</span>
+      {/each}
     </div>
 
   </div>
